@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 
-export const DashboardStats = ({ darkMode }) => {
+export const DashboardStats = ({ darkMode, totalStudents, maleStudents, femaleStudents }) => {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
             {/* Tổng số */}
@@ -29,7 +29,7 @@ export const DashboardStats = ({ darkMode }) => {
                         Tổng số
                     </p>
                     <p className={`${!darkMode ? 'text-gray-900' : 'text-white'} text-2xl font-semibold dark:text-white`}>
-                        0
+                        {totalStudents}
                     </p>
                 </div>
             </div>
@@ -57,7 +57,7 @@ export const DashboardStats = ({ darkMode }) => {
                         Nam
                     </p>
                     <p className={`${!darkMode ? 'text-gray-900' : 'text-white'} text-2xl font-semibold dark:text-white`}>
-                        0
+                        {maleStudents}
                     </p>
                 </div>
             </div>
@@ -86,7 +86,7 @@ export const DashboardStats = ({ darkMode }) => {
                         Nữ
                     </p>
                     <p className={`${!darkMode ? 'text-gray-900' : 'text-white'} text-2xl font-semibold dark:text-white`}>
-                        0
+                        {femaleStudents}
                     </p>
                 </div>
             </div>
