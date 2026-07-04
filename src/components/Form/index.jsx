@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-export const Form = ({ darkMode, student, setStudent, handleSubmit, handleCancelEdit, handleEditStudent, isEditing }) => {
+export const Form = ({ darkMode, student, setStudent, handleSubmit, handleCancelEdit, handleEditStudent, isEditing, handleSaveEdit }) => {
+    useEffect(() => {
+        if (!student || !student.gender) {
+            setStudent(prev => ({ ...(prev || {}), gender: 'Male' }))
+        }
+    }, [student, setStudent])
+
     return (
         <div className="mb-6">
             <div className={`${!darkMode ? 'bg-white' : 'bg-[#111111]'} rounded-xl shadow p-6 max-w-md`}>
-                <h3 className="text-lg font-semibold mb-4">Hồ sơ học sinh mới</h3>
+                <h3 className="text-lg font-semibold mb-4">{isEditing ? 'Chỉnh sửa thông tin' : 'Hồ sơ học sinh mới'}</h3>
                 <div className="grid grid-cols-2 gap-4">
                     <label className="text-sm text-gray-500">Họ và tên
                         <input
@@ -30,7 +36,7 @@ export const Form = ({ darkMode, student, setStudent, handleSubmit, handleCancel
                     <label className="text-sm text-gray-500">Giới tính
                         <select
                             className={`${!darkMode ? 'bg-gray-50 border-gray-200 text-gray-900' : 'bg-[#111111]  text-white'} mt-2 w-full rounded-md border p-2 text-sm focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white  appearance-none`}
-                            value={student.gender}
+                            value={student.gender || 'Male'}
                             onChange={(e) =>
                                 setStudent({ ...student, gender: e.target.value })
                             }
@@ -53,20 +59,21 @@ export const Form = ({ darkMode, student, setStudent, handleSubmit, handleCancel
                 </div>
 
                 <div className="flex justify-end mt-6">
+                    {isEditing && (
+                        <button
+                            className={`${!darkMode ? ' text-gray-500 hover:text-black' : ' text-gray-400 hover:text-white'} ml-4 px-4 py-2 rounded-md font-semibold hover:opacity-90 transition-opacity duration-300`}
+                            onClick={handleCancelEdit}
+                        >
+                            Hủy bỏ
+                        </button>
+                    )}
                     <button
                         className={`${!darkMode ? 'bg-black text-white' : 'bg-white text-black'} px-4 py-2 rounded-md font-semibold hover:opacity-90 transition-opacity duration-300`}
-                        onClick={handleSubmit}
+                        onClick={isEditing ? handleSaveEdit : handleSubmit}
                     >
                         {isEditing ? 'Lưu cập nhật' : 'Tạo hồ sơ'}
                     </button>
-                    {isEditing && (
-                        <button
-                            className={`${!darkMode ? 'bg-gray-300 text-gray-700' : 'bg-[#333] text-white'} ml-4 px-4 py-2 rounded-md font-semibold hover:opacity-90 transition-opacity duration-300`}
-                            onClick={handleCancelEdit}
-                        >
-                            Hủy
-                        </button>
-                    )}
+
                 </div>
             </div>
         </div>

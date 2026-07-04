@@ -62,19 +62,25 @@ const Home = () => {
     //hàm submit form
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!student.name || !student.age || !student.gender || !student.address) {
+
+        const trimmedStudent = {
+            ...student,
+            name: student.name.trim(),
+            address: student.address.trim(),
+            gender: student.gender || "Male",
+        };
+
+        if (!trimmedStudent.name || !trimmedStudent.age || !trimmedStudent.gender || !trimmedStudent.address) {
             alert("Vui lòng điền đầy đủ thông tin");
             return;
         }
 
         setStudents((prevStudents) => {
-            debugger
             const updatedStudents = [
                 ...prevStudents,
                 {
                     id: Date.now(),
-                    ...student,
-                    gender: student.gender || "Nam",
+                    ...trimmedStudent,
                 },
             ];
             localStorage.setItem("students", JSON.stringify(updatedStudents));
@@ -92,8 +98,8 @@ const Home = () => {
 
     //hàm quản lý danh sách sinh viên
     const totalStudents = students.length;
-    const maleStudents = students.filter((student) => student.gender === "Nam").length;
-    const femaleStudents = students.filter((student) => student.gender === "Nữ").length;
+    const maleStudents = students.filter((student) => student.gender === "Male").length;
+    const femaleStudents = students.filter((student) => student.gender === "Female").length;
     //hàm điền dữ liệu học sinh vào list
     const studentsach = students;
     //hàm xóa học sinh
@@ -109,6 +115,7 @@ const Home = () => {
     const isEditing = editingStudentId !== null;
 
     const handleEditStudent = (id) => {
+
         const studentToEdit = students.find((student) => student.id === id);
         if (studentToEdit) {
             setStudent(studentToEdit || {});
@@ -172,7 +179,7 @@ const Home = () => {
                                 handleCancelEdit={handleCancelEdit}
                                 handleEditStudent={handleEditStudent}
                                 isEditing={isEditing}
-
+                                handleSaveEdit={handleSaveEdit}
                             />
                         </div>
                         <div className="lg:col-span-2">

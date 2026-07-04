@@ -32,7 +32,8 @@ export const StudentList = ({ students = [], darkMode, handleDeleteStudent, hand
                 students.map((student) => (
                     <div
                         key={student.id}
-                        className="group flex flex-col sm:flex-row sm:items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-[#161616] transition-colors"
+                        className={`group flex 
+                         rounded-3xl  shadow-sm ${darkMode ? "group flex flex-col sm:flex-row sm:items-center justify-between p-5 bg-[#111111] hover:bg-[#282828] dark:hover:bg-[#161616] transition-colors" : "group flex flex-col sm:flex-row sm:items-center justify-between p-5 bg-[#FFFFFF] hover:bg-[#fbf9f9] dark:hover:bg-[#161616] transition-colors"}`}
                     >
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-12 shrink-0 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-[#222] dark:to-[#333] flex items-center justify-center text-sm font-semibold text-gray-600 dark:text-gray-300">
@@ -40,7 +41,7 @@ export const StudentList = ({ students = [], darkMode, handleDeleteStudent, hand
                             </div>
                             <div>
                                 <div className="flex items-center gap-2.5 mb-1">
-                                    <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                                    <h3 className={`${darkMode ? "text-sm font-semibold  text-white dark:text-gray-900" : "text-sm font-semibold text-gray-900 dark:text-white"}`}>
                                         {student.name}
                                     </h3>
                                     <span
